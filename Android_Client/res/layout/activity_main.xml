@@ -5,15 +5,54 @@
     android:gravity="center"
     android:orientation="vertical">
 
+
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		      android:layout_width="wrap_content"
+		      android:layout_height="wrap_content"
+		      android:orientation="horizontal" >
+		
+
+		<TextView android:id="@+id/text2"
+		      android:layout_width="wrap_content"
+		      android:layout_height="wrap_content"
+		      android:text="Filter time: " />
+
+		<SeekBar
+			android:id="@+id/time"
+			android:layout_width="150dp"
+			android:layout_height="wrap_content" 
+			android:min="0"
+			android:max="100"/>
+
+
+		<TextView android:id="@+id/timeLabel"
+		      android:layout_width="wrap_content"
+		      android:layout_height="wrap_content"
+		      android:text="s" />
+
+	</LinearLayout>
+		<CheckBox android:id="@+id/mean"
+		      android:layout_width="wrap_content"
+		      android:layout_height="wrap_content"
+		      android:text="Use mean filter" />
+
+		<CheckBox android:id="@+id/kalman"
+		      android:layout_width="wrap_content"
+		      android:layout_height="wrap_content"
+		      android:text="Kalman" />
+
+
 	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 		      android:layout_width="wrap_content"
 		      android:layout_height="wrap_content"
 		      android:orientation="horizontal" >
 
+
 		<TextView android:id="@+id/text"
 		      android:layout_width="wrap_content"
 		      android:layout_height="wrap_content"
 		      android:text="Address: " />
+
 		<EditText
 		     android:id="@+id/addressEditText"
 		     android:layout_height="wrap_content"

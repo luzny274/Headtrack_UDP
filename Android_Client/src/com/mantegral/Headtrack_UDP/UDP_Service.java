@@ -17,19 +17,25 @@ import com.kircherelectronics.fsensor.filter.averaging.MeanFilter;
 import com.kircherelectronics.fsensor.observer.SensorSubject;
 import com.kircherelectronics.fsensor.sensor.FSensor;
 import com.kircherelectronics.fsensor.sensor.gyroscope.ComplementaryGyroscopeSensor;
+import com.kircherelectronics.fsensor.sensor.gyroscope.KalmanGyroscopeSensor;
   
 public class UDP_Service extends Service {  
 
-	static String strAddress = ""; static int port = 5555;
+	public static String strAddress = ""; static int port = 5555;
+	public static Boolean useKalman = false;
+	public static Boolean useMean = false;
+	public static float time = 0.15f;
 
 	static CyclicBarrier sync;
 	Thread worker;
 	static volatile Boolean running = false;
 
-    	private static DatagramSocket socket;
-    	private static InetAddress address; 
+	private static DatagramSocket socket;
+	private static InetAddress address; 
 
-    	private FSensor fSensor;
+	private FSensor fSensor;
+    private MeanFilter meanFilter;
+
 	static ByteBuffer buf;
 	public static double[] dbs = new double[6];
 
@@ -42,16 +48,25 @@ public class UDP_Service extends Service {
     public void onCreate() {  
         Toast.makeText(this, "Service Created", Toast.LENGTH_SHORT).show();
 
-	buf = ByteBuffer.allocate(49);
-	buf.order(ByteOrder.LITTLE_ENDIAN);
+		buf = ByteBuffer.allocate(49);
+		buf.order(ByteOrder.LITTLE_ENDIAN);
 
-	fSensor = new ComplementaryGyroscopeSensor(this);
-        ((ComplementaryGyroscopeSensor)fSensor).setFSensorComplimentaryTimeConstant(0.5f);
+		if(useKalman)
+			fSensor = new KalmanGyroscopeSensor(this);
+		else{
+			fSensor = new ComplementaryGyroscopeSensor(this);
+			((ComplementaryGyroscopeSensor)fSensor).setFSensorComplimentaryTimeConstant(time);
+		}
 
-	sync = new CyclicBarrier(2);
+		if(useMean){
+			meanFilter = new MeanFilter();
+			meanFilter.setTimeConstant(time);
+		}
 
-	worker = new Thread(new Runnable() { 
-            public void run(){
+		sync = new CyclicBarrier(2);
+
+		worker = new Thread(new Runnable() { 
+			public void run(){
 			running = true;
 			try {
 				while(running) {
@@ -64,7 +79,7 @@ public class UDP_Service extends Service {
 					send();
 				}
 			} catch (InterruptedException e) {}
-        	}
+			}
 		});	
 
     }  
@@ -73,17 +88,17 @@ public class UDP_Service extends Service {
     public void onStart(Intent intent, int startid) {  
         Toast.makeText(this, "Service Started", Toast.LENGTH_SHORT).show();  
 
-	try {
-	  socket = new DatagramSocket();	
-	  address = InetAddress.getByName(strAddress);
-	}
-	catch(SocketException e) {
-	} catch(UnknownHostException e) {
-	} 
+		try {
+		socket = new DatagramSocket();	
+		address = InetAddress.getByName(strAddress);
+		}
+		catch(SocketException e) {
+		} catch(UnknownHostException e) {
+		} 
 
         fSensor.register(sensorObserver);
         fSensor.start();
-	worker.start();
+		worker.start();
 
     }  
 
@@ -91,28 +106,33 @@ public class UDP_Service extends Service {
     public void onDestroy() {  
         Toast.makeText(this, "Service Stopped", Toast.LENGTH_SHORT).show();  
 
-	running = false;
-	fSensor.unregister(sensorObserver);
-        fSensor.stop();
+		running = false;
+		fSensor.unregister(sensorObserver);
+		fSensor.stop();
 
-	socket.close();
+		socket.close();
     }  
 
 	private SensorSubject.SensorObserver sensorObserver = new SensorSubject.SensorObserver() {
 		@Override
 		public void onSensorChanged(float[] values) {
 			dbs[0] = 0.0; dbs[1] = 0.0; dbs[2] = 0.0; 
-			dbs[3] = ((double)Math.toDegrees(values[0]) + 360.0) % 360.0 - 180.0;
-			dbs[4] = ((double)Math.toDegrees(values[1]) + 360.0) % 360.0 - 180.0;
-			dbs[5] = ((double)Math.toDegrees(values[2]) + 360.0) % 360.0 - 180.0;
+			float[] vals;
+			if(useMean)
+				vals = meanFilter.filter(values);
+			else
+				vals = values;
+
+			dbs[3] = ((double)Math.toDegrees(vals[0]) + 360.0) % 360.0 - 180.0;
+			dbs[4] = ((double)Math.toDegrees(vals[1]) + 360.0) % 360.0 - 180.0;
+			dbs[5] = ((double)Math.toDegrees(vals[2]) + 360.0) % 360.0 - 180.0;
 
 			if(sync.getNumberWaiting() > 0)
 				sync.reset();	
 		}
-    	};
+    };
 
 	public static void send() {
-
 		buf.clear();	
 		for(double d : dbs)
 			buf.putDouble(d);

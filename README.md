@@ -17,7 +17,7 @@ Get IP address by running "ipconfig" command in cmd.
 
 
 ### APK
-Apk is located inside "Android_Client/bin/Headtrack_UDP.apk" folder.
+Apk location: "Android_Client/bin/Headtrack_UDP.apk".
 
 
 ### Building

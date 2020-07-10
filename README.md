@@ -17,11 +17,11 @@ Get IP address by running "ipconfig" command in cmd.
 
 
 ### APK
-Apk is located inside "bin" folder.
+Apk is located inside "Android_Client/bin/Headtrack_UDP.apk" folder.
 
 
 ### Building
-Put required file locations to "Compiler/compilers.settings" and run "build.sh".
+Put required file locations to "Android_Client/Compiler/compilers.settings" and run "build.sh".
 
 Alternatively you can just start new project in Android studio and copy the code there (It's just two files in "src/com/mantegral/Headtrack_UDP/" and a library [FSensor](https://github.com/KalebKE/FSensor)).
 

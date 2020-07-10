@@ -23,7 +23,7 @@ Apk location: "Android_Client/bin/Headtrack_UDP.apk".
 ### Building
 Put required file locations to "Android_Client/Compiler/compilers.settings" and run "build.sh".
 
-Alternatively you can just start new project in Android studio and copy the code there (It's just two files in "src/com/mantegral/Headtrack_UDP/" and a library [FSensor](https://github.com/KalebKE/FSensor)).
+Alternatively you can just start new project in Android studio and copy the code there (It's just two files in "Android_Client/src/com/mantegral/Headtrack_UDP/" and a library [FSensor](https://github.com/KalebKE/FSensor)).
 
 ## Windows mouse emulator
 C# Visual Studio project, executable located in "Windows_MouseEmulation/bin".

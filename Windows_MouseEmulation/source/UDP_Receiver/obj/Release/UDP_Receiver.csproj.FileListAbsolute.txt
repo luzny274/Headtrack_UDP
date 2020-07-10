@@ -1,0 +1,10 @@
+C:\Users\VITA\Documents\Visual Studio 2017\Projects\UDP_Receiver\UDP_Receiver\bin\Release\MouseEmulation.exe.config
+C:\Users\VITA\Documents\Visual Studio 2017\Projects\UDP_Receiver\UDP_Receiver\bin\Release\MouseEmulation.exe
+C:\Users\VITA\Documents\Visual Studio 2017\Projects\UDP_Receiver\UDP_Receiver\bin\Release\MouseEmulation.pdb
+C:\Users\VITA\Documents\Visual Studio 2017\Projects\UDP_Receiver\UDP_Receiver\obj\Release\UDP_Receiver.csprojAssemblyReference.cache
+C:\Users\VITA\Documents\Visual Studio 2017\Projects\UDP_Receiver\UDP_Receiver\obj\Release\UDP_Receiver.Form1.resources
+C:\Users\VITA\Documents\Visual Studio 2017\Projects\UDP_Receiver\UDP_Receiver\obj\Release\UDP_Receiver.Properties.Resources.resources
+C:\Users\VITA\Documents\Visual Studio 2017\Projects\UDP_Receiver\UDP_Receiver\obj\Release\UDP_Receiver.csproj.GenerateResource.cache
+C:\Users\VITA\Documents\Visual Studio 2017\Projects\UDP_Receiver\UDP_Receiver\obj\Release\UDP_Receiver.csproj.CoreCompileInputs.cache
+C:\Users\VITA\Documents\Visual Studio 2017\Projects\UDP_Receiver\UDP_Receiver\obj\Release\MouseEmulation.exe
+C:\Users\VITA\Documents\Visual Studio 2017\Projects\UDP_Receiver\UDP_Receiver\obj\Release\MouseEmulation.pdb

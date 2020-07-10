@@ -1,0 +1,7 @@
+Port: 4242
+SelectedX: 0
+SelectedY: 2
+SensitivityX: 1991
+SensitivityY: 1991
+InvertX: 1
+InvertY: 0

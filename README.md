@@ -25,5 +25,7 @@ Put required file locations to "Android_Client/Compiler/compilers.settings" and 
 
 Alternatively you can just start new project in Android studio and copy the code there (It's just two files in "Android_Client/src/com/mantegral/Headtrack_UDP/" and a library [FSensor](https://github.com/KalebKE/FSensor)).
 
+![alt text](https://github.com/luzny274/Headtrack_UDP/raw/master/Android_Client/android_client_screenshot.jpg "Android_client")
+
 ## Windows mouse emulator
 C# Visual Studio project, executable located in "Windows_MouseEmulation/bin".
